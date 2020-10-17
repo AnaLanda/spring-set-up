@@ -17,7 +17,6 @@ import spring.setup.model.User;
         "spring.setup.service"
 })
 public class AppConfig {
-
     @Bean
     public DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
