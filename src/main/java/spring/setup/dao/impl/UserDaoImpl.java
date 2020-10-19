@@ -6,18 +6,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import spring.setup.dao.UserDao;
 import spring.setup.model.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    private Logger log;
+    private Logger log = Logger.getLogger(UserDaoImpl.class);
     private SessionFactory sessionFactory;
 
-    public UserDaoImpl(Logger log, SessionFactory sessionFactory) {
-        this.log = log;
+    public UserDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -54,15 +52,5 @@ public class UserDaoImpl implements UserDao {
         } catch (Exception e) {
             throw new RuntimeException("Failed to get a list of all users.", e);
         }
-    }
-
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Autowired
-    public void setLogger(Logger log) {
-        this.log = log;
     }
 }
