@@ -16,6 +16,11 @@ public class UserDaoImpl implements UserDao {
     private Logger log;
     private SessionFactory sessionFactory;
 
+    public UserDaoImpl(Logger log, SessionFactory sessionFactory) {
+        this.log = log;
+        this.sessionFactory = sessionFactory;
+    }
+
     public void add(User user) {
         Transaction transaction = null;
         Session session = null;
