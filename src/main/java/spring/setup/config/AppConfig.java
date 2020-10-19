@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import spring.setup.dao.impl.UserDaoImpl;
 import spring.setup.model.User;
 
 @Configuration
@@ -42,6 +41,6 @@ public class AppConfig {
 
     @Bean
     public Logger getLogger() {
-        return Logger.getLogger(UserDaoImpl.class);
+        return Logger.getLogger("spring.setup");
     }
 }

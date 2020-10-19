@@ -14,6 +14,7 @@ public class Main {
         userService.add(new User("Bojack", "Horseman", "bojack@gmail.com"));
         userService.add(new User("Princess", "Carolyn", "agent@gmail.com"));
         userService.add(new User("Todd", "Chavez", "todd@gmail.com"));
-        userService.listUsers();
+        System.out.println("All users: ");
+        userService.listUsers().forEach(System.out::println);
     }
 }
