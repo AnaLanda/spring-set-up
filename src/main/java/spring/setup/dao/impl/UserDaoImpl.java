@@ -12,7 +12,7 @@ import spring.setup.model.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    private Logger log = Logger.getLogger(UserDaoImpl.class);
+    private static final Logger log = Logger.getLogger(UserDaoImpl.class);
     private SessionFactory sessionFactory;
 
     public UserDaoImpl(SessionFactory sessionFactory) {
