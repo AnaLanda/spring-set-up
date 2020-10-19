@@ -13,7 +13,7 @@ import spring.setup.model.User;
 @Repository
 public class UserDaoImpl implements UserDao {
     private static final Logger log = Logger.getLogger(UserDaoImpl.class);
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public UserDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
