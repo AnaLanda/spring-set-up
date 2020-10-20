@@ -34,12 +34,7 @@ public class UserController {
     @GetMapping(value = "/{userId}")
     public UserResponseDto get(@PathVariable Long userId) {
         log.info("Trying to retrieve the UserResponseDto for user ID " + userId);
-        List<User> allUsers = userService.listUsers();
-        User userFromDb = allUsers.stream()
-                .filter(user -> user.getId().equals(userId))
-                .findFirst()
-                .orElseThrow();
-        UserResponseDto userResponseDto = mapUserResponseDto(userFromDb);
+        UserResponseDto userResponseDto = mapUserResponseDto(userService.getById(userId));
         log.info("Successfully retrieved the UserResponseDto " + userResponseDto);
         return userResponseDto;
     }

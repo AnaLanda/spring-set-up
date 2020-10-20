@@ -1,6 +1,7 @@
 package spring.setup.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -39,6 +40,19 @@ public class UserDaoImpl implements UserDao {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    public Optional<User> findById(Long id) {
+        log.info("Trying to get the user with the ID " + id);
+        try (Session session = sessionFactory.openSession()) {
+            Query<User> query = session.createQuery("from User "
+                    + "where id = :id", User.class);
+            query.setParameter("id", id);
+            return query.uniqueResultOptional();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to find a user with the ID "
+                    + id, e);
         }
     }
 
