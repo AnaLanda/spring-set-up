@@ -7,6 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import spring.setup.config.AppConfig;
 import spring.setup.dto.UserResponseDto;
@@ -14,6 +15,7 @@ import spring.setup.model.User;
 import spring.setup.service.UserService;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     private static final Logger log = Logger.getLogger(UserController.class);
     AnnotationConfigApplicationContext context =
@@ -21,7 +23,7 @@ public class UserController {
     UserService userService = context.getBean(UserService.class);
 
     @ResponseBody
-    @GetMapping(value = "/user/inject")
+    @GetMapping(value = "/inject")
     public void injectUsers() {
         log.info("Trying to inject four users");
         userService.add(new User("Bojack", "Horseman", "bojack@gmail.com"));
@@ -32,7 +34,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping(value = "/user/{userId}")
+    @GetMapping(value = "/{userId}")
     public UserResponseDto get(@PathVariable Long userId) {
         log.info("Trying to retrieve the UserResponseDto for user ID " + userId);
         List<User> allUsers = userService.listUsers();
@@ -46,7 +48,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping(value = "/user/")
+    @GetMapping(value = "/")
     public List<UserResponseDto> getAll() {
         log.info("Trying to get UserResponseDtos for all users");
         List<UserResponseDto> allUserResponseDtos = userService.listUsers().stream()
@@ -59,6 +61,7 @@ public class UserController {
     private UserResponseDto mapUserResponseDto(User user) {
         UserResponseDto userResponseDto = new UserResponseDto();
         userResponseDto.setName(user.getName());
+        userResponseDto.setSurname(user.getSurname());
         userResponseDto.setEmail(user.getEmail());
         return userResponseDto;
     }
