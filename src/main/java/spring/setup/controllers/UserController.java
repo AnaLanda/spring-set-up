@@ -37,7 +37,7 @@ public class UserController {
         log.info("Trying to retrieve the UserResponseDto for user ID " + userId);
         List<User> allUsers = userService.listUsers();
         User userFromDb = allUsers.stream()
-                .filter(user -> user.getId() == userId)
+                .filter(user -> user.getId().equals(userId))
                 .findFirst()
                 .orElseThrow();
         UserResponseDto userResponseDto = mapUserResponseDto(userFromDb);
@@ -49,8 +49,7 @@ public class UserController {
     @GetMapping(value = "/user/")
     public List<UserResponseDto> getAll() {
         log.info("Trying to get UserResponseDtos for all users");
-        List<User> allUsers = userService.listUsers();
-        List<UserResponseDto> allUserResponseDtos = allUsers.stream()
+        List<UserResponseDto> allUserResponseDtos = userService.listUsers().stream()
                 .map(user -> mapUserResponseDto(user))
                 .collect(Collectors.toList());
         log.info("Successfully retrieved all UserResponseDtos");
