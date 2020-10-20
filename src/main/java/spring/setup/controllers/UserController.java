@@ -4,17 +4,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import spring.setup.config.AppConfig;
 import spring.setup.dto.UserResponseDto;
 import spring.setup.model.User;
 import spring.setup.service.UserService;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
     private static final Logger log = Logger.getLogger(UserController.class);
@@ -22,7 +21,6 @@ public class UserController {
             new AnnotationConfigApplicationContext(AppConfig.class);
     UserService userService = context.getBean(UserService.class);
 
-    @ResponseBody
     @GetMapping(value = "/inject")
     public void injectUsers() {
         log.info("Trying to inject four users");
@@ -33,7 +31,6 @@ public class UserController {
         log.info("Successfully injected four users");
     }
 
-    @ResponseBody
     @GetMapping(value = "/{userId}")
     public UserResponseDto get(@PathVariable Long userId) {
         log.info("Trying to retrieve the UserResponseDto for user ID " + userId);
@@ -47,8 +44,7 @@ public class UserController {
         return userResponseDto;
     }
 
-    @ResponseBody
-    @GetMapping(value = "/")
+    @GetMapping
     public List<UserResponseDto> getAll() {
         log.info("Trying to get UserResponseDtos for all users");
         List<UserResponseDto> allUserResponseDtos = userService.listUsers().stream()
