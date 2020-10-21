@@ -51,8 +51,7 @@ public class UserDaoImpl implements UserDao {
             query.setParameter("id", id);
             return query.uniqueResultOptional();
         } catch (Exception e) {
-            throw new RuntimeException("Failed to find a user with the ID "
-                    + id, e);
+            throw new RuntimeException("Failed to find a user with the ID " + id, e);
         }
     }
 

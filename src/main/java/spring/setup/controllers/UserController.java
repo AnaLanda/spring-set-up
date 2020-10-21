@@ -3,12 +3,10 @@ package spring.setup.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import spring.setup.config.AppConfig;
 import spring.setup.dto.UserResponseDto;
 import spring.setup.model.User;
 import spring.setup.service.UserService;
@@ -17,9 +15,11 @@ import spring.setup.service.UserService;
 @RequestMapping("/user")
 public class UserController {
     private static final Logger log = Logger.getLogger(UserController.class);
-    AnnotationConfigApplicationContext context =
-            new AnnotationConfigApplicationContext(AppConfig.class);
-    UserService userService = context.getBean(UserService.class);
+    private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/inject")
     public void injectUsers() {
