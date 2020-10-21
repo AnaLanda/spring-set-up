@@ -15,7 +15,7 @@ import spring.setup.service.UserService;
 @RequestMapping("/user")
 public class UserController {
     private static final Logger log = Logger.getLogger(UserController.class);
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
